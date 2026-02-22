@@ -1,0 +1,62 @@
+services:
+  db:
+    image: mysql:8.4
+    container_name: user-service-db-local
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    ports:
+      - "${MYSQL_PORT}:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p${MYSQL_ROOT_PASSWORD}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: user-service-api-local
+    restart: unless-stopped
+    environment:
+      SERVER_PORT: 8080
+      APP_CORS_ORIGIN: ${APP_CORS_ORIGIN}
+      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
+      SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
+      APP_SECURITY_JWT_SECRET: ${APP_SECURITY_JWT_SECRET}
+      APP_SECURITY_JWT_EXPIRATION_SECONDS: ${APP_SECURITY_JWT_EXPIRATION_SECONDS}
+      APP_SECURITY_ADMIN_USERNAME: ${APP_SECURITY_ADMIN_USERNAME}
+      APP_SECURITY_ADMIN_PASSWORD: ${APP_SECURITY_ADMIN_PASSWORD}
+      APP_SECURITY_VIEWER_USERNAME: ${APP_SECURITY_VIEWER_USERNAME}
+      APP_SECURITY_VIEWER_PASSWORD: ${APP_SECURITY_VIEWER_PASSWORD}
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "${API_PORT}:8080"
+
+  web:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_API_BASE_URL: ${NEXT_PUBLIC_API_BASE_URL}
+    container_name: user-service-web-local
+    restart: unless-stopped
+    environment:
+      NEXT_PUBLIC_API_BASE_URL: ${NEXT_PUBLIC_API_BASE_URL}
+    depends_on:
+      api:
+        condition: service_started
+    ports:
+      - "${WEB_PORT}:3000"
+
+volumes:
+  mysql_data:

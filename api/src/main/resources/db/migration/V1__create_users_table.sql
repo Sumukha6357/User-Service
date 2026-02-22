@@ -1,0 +1,11 @@
+CREATE TABLE users (
+    user_id BIGINT NOT NULL AUTO_INCREMENT,
+    user_name VARCHAR(120) NOT NULL,
+    age INT NOT NULL,
+    gender VARCHAR(30) NOT NULL,
+    deleted BOOLEAN NOT NULL DEFAULT FALSE,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (user_id),
+    UNIQUE KEY uk_users_user_name (user_name)
+);

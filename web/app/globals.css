@@ -1,0 +1,214 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #fff7ed;
+  --bg-accent: #ffedd5;
+  --card: #fffdfa;
+  --ink: #1b1b1b;
+  --muted: #6b645c;
+  --line: #e7d9c8;
+  --brand: #b45309;
+  --brand-deep: #7c2d12;
+  --danger: #b91c1c;
+  --success: #047857;
+}
+
+@theme inline {
+  --font-sans: var(--font-space-grotesk);
+  --font-mono: var(--font-jetbrains-mono);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 20% 10%, #fed7aa 0%, transparent 35%),
+    radial-gradient(circle at 90% 0%, #fdba74 0%, transparent 24%),
+    linear-gradient(150deg, var(--bg) 0%, var(--bg-accent) 65%, #fffbeb 100%);
+  font-family: var(--font-space-grotesk), sans-serif;
+}
+
+.page {
+  margin: 0 auto;
+  max-width: 1200px;
+  padding: 2rem 1rem 3rem;
+}
+
+.hero {
+  margin-bottom: 1.5rem;
+}
+
+.hero-kicker {
+  margin: 0 0 0.4rem;
+  color: var(--brand-deep);
+  font-size: 0.86rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 700;
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: clamp(1.55rem, 2.8vw, 2.55rem);
+  line-height: 1.15;
+}
+
+.hero-subtitle {
+  color: var(--muted);
+  margin-top: 0.85rem;
+}
+
+.hero-subtitle code {
+  font-family: var(--font-jetbrains-mono), monospace;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 0.22rem 0.4rem;
+  font-size: 0.84rem;
+}
+
+.grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+.card {
+  background: color-mix(in srgb, var(--card) 86%, white 14%);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 1rem;
+  box-shadow: 0 14px 30px rgba(120, 80, 20, 0.08);
+}
+
+.card h2 {
+  margin: 0 0 0.9rem;
+  font-size: 1.05rem;
+}
+
+.form {
+  display: grid;
+  gap: 0.68rem;
+}
+
+.form label {
+  display: grid;
+  gap: 0.35rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.form input {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 0.64rem 0.7rem;
+  color: var(--ink);
+  background: #fff;
+  outline: none;
+  transition: border-color 0.18s ease;
+}
+
+.form select {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 0.64rem 0.7rem;
+  color: var(--ink);
+  background: #fff;
+  outline: none;
+}
+
+.form input:focus {
+  border-color: var(--brand);
+}
+
+.form button {
+  margin-top: 0.35rem;
+  border: 0;
+  border-radius: 10px;
+  padding: 0.66rem 0.95rem;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(130deg, var(--brand-deep), var(--brand));
+  cursor: pointer;
+}
+
+.form button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.form button.danger {
+  background: linear-gradient(130deg, #991b1b, var(--danger));
+}
+
+.mini {
+  padding: 0.35rem 0.55rem;
+  border-radius: 8px;
+  font-size: 0.8rem;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.table th,
+.table td {
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  padding: 0.5rem;
+}
+
+.result-panel {
+  margin-top: 1rem;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 1rem;
+}
+
+.result-panel h2 {
+  margin: 0 0 0.75rem;
+}
+
+.status {
+  margin: 0 0 0.6rem;
+  font-weight: 700;
+}
+
+.status.ok {
+  color: var(--success);
+}
+
+.status.fail {
+  color: var(--danger);
+}
+
+.result-panel pre {
+  margin: 0;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 0.84rem;
+  background: #fff7ed;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 0.9rem;
+  overflow: auto;
+}
+
+@media (min-width: 860px) {
+  .page {
+    padding: 2.4rem 1.8rem 3.5rem;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1150px) {
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}

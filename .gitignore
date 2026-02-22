@@ -1,0 +1,27 @@
+# OS / IDE
+.DS_Store
+.idea/
+.vscode/
+*.iml
+
+# Root env
+.env
+
+# Java / Maven
+api/target/
+api/.mvn/wrapper/maven-wrapper.jar
+
+# Node / Next
+web/node_modules/
+web/.next/
+web/out/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Temporary git backups from migration
+.git_api_backup/
+.git_web_backup/
